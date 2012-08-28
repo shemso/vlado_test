@@ -13,9 +13,11 @@ describe UsersController do
     it "returns http success" do
       get 'index', :format => :json
       response.should be_success
+      body = JSON.parse(response.body)
+      body.should have(11).items
     end
   end
 
-  
+
 
 end

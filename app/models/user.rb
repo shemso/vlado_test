@@ -1,11 +1,13 @@
 class User
   include ActiveModel::Conversion
   extend ActiveModel::Naming
+
   attr_accessor :id, :author, :avatar, :text, :category, :timestamp
+  
 
   class << self
     def all
-    	all = []
+    	all = Hash.new
     	fixtures = YAML::load(File.open("spec/fixtures/users.yml"))
     	fixtures.each do |id, user|
     		all[id] = self.new(
@@ -18,6 +20,14 @@ class User
     			)
     	end
     	all
+    end
+
+    def page
+    	Kaminari.paginate_array(self.all).page(1).per(10)
+    end
+
+    def latest
+    	self.all.sort_by {|a,i| i.timestamp}
     end
   end
 
