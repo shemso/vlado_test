@@ -1,0 +1,17 @@
+data = '<%= escape_javascript(render "users_listing") %>';
+page = <%= @page %>;
+if (page==1){
+	$('#users').html(data);
+	scroll_down();
+} else {
+	$(data).appendTo('#users');
+}
+total_pages = <%= @total_pages %>
+page++;
+if (page<=total_pages) {
+	$('#load_more').attr('href','/users/category?category=<%= @category %>&page='+page).show();
+	$('#loading').hide();
+} else {
+	$('#load_more').hide();
+	$('#loading').html('There are no more items...').attr('class','btn btn-large disabled btn-block').show();
+}

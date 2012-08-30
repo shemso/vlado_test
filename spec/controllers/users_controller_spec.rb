@@ -7,17 +7,61 @@ describe UsersController do
       get 'index'
       response.should be_success
     end
-  end
 
-  describe "GET 'index' format: json" do
-    it "returns http success" do
+    it "returns http success and 10 json items" do
       get 'index', :format => :json
       response.should be_success
       body = JSON.parse(response.body)
-      body.should have(11).items
+      body.should have(10).items
     end
+
+    it "returns http success for 3rd pagination page" do
+      get 'index', :page => 3
+      response.should be_success
+      response.should render_template("users/index")
+    end
+
   end
 
+  describe "GET 'category'" do 
+    it "returns http success and show category" do
+      get 'category', :format => :json, :category => 'new'
+      response.should be_success
+      body = JSON.parse(response.body)
+      body.count.should >= 1
+    end
+
+    it "returns http success and show category" do
+      get 'category', :format => :json, :category => 'new'
+      response.should be_success
+      body = JSON.parse(response.body)
+      body.count.should >= 1
+    end
+
+    it "returns http success and show category" do
+      get 'category', :format => :json, :category => 'non existing'
+      response.should be_success
+      body = JSON.parse(response.body)
+      body.count.should == 0
+    end
+
+  end
+
+  describe "GET 'show'" do
+    it "returns http success and renders correct template" do
+      get 'show', :id => '1'
+      response.should be_success
+      response.should render_template("users/show")
+    end
+
+    it "returns http success and renders correct template" do
+      get 'show', :format => :json, :id => '1'
+      response.should be_success
+      body = JSON.parse(response.body)
+      body['author'].should == 'Vladimir Grubor'
+    end
+
+  end
 
 
 end

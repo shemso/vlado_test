@@ -1,0 +1,10 @@
+data = '<%= escape_javascript(render "users_listing") %>';
+$(data).appendTo('#users');
+
+page = <%= @page + 1 %>;
+if (page<=<%= @total_pages %>) {
+	$('#load_more').attr('href','/users?page='+page)
+} else {
+	$('#load_more').hide();
+	$('#loading').html('There are no more items...').attr('class','btn btn-large disabled btn-block');
+}

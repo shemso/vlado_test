@@ -3,34 +3,32 @@ class User
   extend ActiveModel::Naming
 
   attr_accessor :id, :author, :avatar, :text, :category, :timestamp
-  
+
 
   class << self
     def all
-    	all = Hash.new
-    	fixtures = YAML::load(File.open("spec/fixtures/users.yml"))
-    	fixtures.each do |id, user|
-    		all[id] = self.new(
-    			:id => id, 
-    			:author => user['author'],
-    			:avatar => user['avatar'],
-    			:text => user['text'],
-    			:category => user['category'],
-    			:timestamp => user['timestamp']
-    			)
-    	end
-    	all
-    end
-
-    def page
-    	Kaminari.paginate_array(self.all).page(1).per(10)
+      fdata =File.open("spec/fixtures/users.yml").read
+      usr = YAML::load(ERB.new(fdata).result(binding)).symbolize_keys
+      usr[:users].map{ |r| User.new(r) }
     end
 
     def latest
-    	self.all.sort_by {|a,i| i.timestamp}
+    	self.all.sort_by {|t| t.timestamp}.reverse
     end
-  end
+    
+    def categories
+      ['New employees','current','disabled','new','old']
+    end
 
+    def find_by_id(id)
+      self.all.find {|t| t.id == id.to_i}
+    end
+
+    def find_by_category(category)
+      self.latest.find_all {|t| t.category == category}
+    end
+
+  end
 
 
   def initialize(attributes = {})

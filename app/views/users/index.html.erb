@@ -1,2 +1,27 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>Users</h1>
+<div>
+	<label class="control-label" for="category">Category:</label>
+	<select id="category">
+		<option value="">All</option>
+		<%= options_for_select @categories %>
+	</select>
+</div>
+<table width="100%" class="table table-striped">
+	<thead>
+		<tr>
+			<th>Avatar</th>
+			<th>Author</th>
+			<th>Category</th>
+			<th>Text</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<tbody id="users">
+		<%= render "users_listing" %>
+	</tbody>
+</table>
+
+<div class="show_more">
+	<div id="loading"></div>
+	<%= link_to "Load more", users_path(:page=>2), :remote => true, :id => "load_more", :class=>"btn btn-primary btn-large btn-block" %>
+</div>
