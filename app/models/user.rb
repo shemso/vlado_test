@@ -1,7 +1,14 @@
 class User
-  
+
   attr_accessor :id, :author, :avatar, :text, :category, :timestamp
 
+  def initialize(attributes = {})
+    if attributes
+      attributes.each do |name, value|
+        send("#{name}=", value)
+      end
+    end
+  end
 
   class << self
     def all
@@ -27,18 +34,5 @@ class User
     end
 
   end
-
-
-  def initialize(attributes = {})
-    if attributes
-      attributes.each do |name, value|
-        send("#{name}=", value)
-      end
-    end
-  end
-
-  def persisted?
-    false
-  end 
 
 end
