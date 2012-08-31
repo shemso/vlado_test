@@ -2,7 +2,9 @@ VladoTest::Application.routes.draw do
 
   match "users" => 'users#index'
   match "users/category" => 'users#category'
+  match "users/total" => 'users#total'
   match "users/:id" => 'users#show', :as => :user
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

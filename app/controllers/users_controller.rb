@@ -27,10 +27,21 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_id(params[:id])
-    @id = params[:id]
+    if @user.nil?
+      redirect_to users_path, alert: 'Error: there is no such user...'
+    else
+      @id = params[:id]
+      respond_to do |format|
+        format.html
+        format.json { render json: @user }
+      end
+    end
+  end
+
+  def total
+    @total_users = User.all.count
     respond_to do |format|
-      format.html
-      format.json { render json: @user }
+      format.json { render json: @total_users }
     end
   end
 

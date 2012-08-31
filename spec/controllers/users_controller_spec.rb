@@ -61,6 +61,19 @@ describe UsersController do
       body['author'].should == 'Vladimir Grubor'
     end
 
+    it "redirect for wrong users" do
+      get 'show', :id => '10000'
+      response.should be_redirect
+    end
+
+  end
+
+  describe "GET 'total'" do
+    it "returns total number of users in JSON" do
+      get "total", :format => :json
+      response.should be_success
+      response.body.should == '50'
+    end
   end
 
 
