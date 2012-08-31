@@ -1,7 +1,7 @@
 <% @users.each do |user| %>
 	<tr>
 		<td><%= image_tag(user.avatar) %></td>
-		<td><%= user.author %></td>
+		<td><%= link_to user.author, user_path(user.id) %></td>
 		<td><span class="label label-inverse"><%= user.category %></span></td>
 		<td><%= truncate(user.text,:length => 50) %></td>
 		<td><%= nice_date(user.timestamp) %></td>

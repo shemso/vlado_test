@@ -1,2 +1,11 @@
-<h1><%= @user.author %></h1>
-<p><%= @user.text %></p>
+<div class="row">
+	<div class="span1"><img src="<%= @user.avatar %>" class="img-circle"></div>
+	<div class="span11">
+		<h1><%= @user.author %></h1>
+		<p>Createt at: <%= nice_date(@user.timestamp) %> in category <span class="label label-inverse"><%= @user.category %></span></p>
+
+		<p><blockquote><%= @user.text %></blockquote></p>
+
+	</div>
+</div>
+
