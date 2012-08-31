@@ -1,7 +1,5 @@
 class User
-  include ActiveModel::Conversion
-  extend ActiveModel::Naming
-
+  
   attr_accessor :id, :author, :avatar, :text, :category, :timestamp
 
 
