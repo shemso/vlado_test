@@ -6,5 +6,5 @@ if (page<=<%= @total_pages %>) {
 	$('#load_more').attr('href','/users?page='+page)
 } else {
 	$('#load_more').hide();
-	$('#loading').html('There are no more items...').attr('class','btn btn-large disabled btn-block');
+	$('#loading').html('There are no more items...').attr('class','btn btn-large disabled btn-block').show();
 }

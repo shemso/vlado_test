@@ -15,7 +15,9 @@ $('#category').change(function(c) {
 		$.getScript('/users/category.js?page=1&category='+this.value);
 	} else {
 		$('#users').html('');
+		$('#loading').hide();
 		$('#load_more').show();
 		$.getScript('/users.js');
+		scroll_down();
 	}
 }); 
